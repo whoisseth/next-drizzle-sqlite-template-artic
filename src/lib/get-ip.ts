@@ -1,8 +1,8 @@
-import { headers } from "next/headers";
+import { headers, type UnsafeUnwrappedHeaders } from "next/headers";
 
 export function getIp() {
-  const forwardedFor = headers().get("x-forwarded-for");
-  const realIp = headers().get("x-real-ip");
+  const forwardedFor = (headers() as unknown as UnsafeUnwrappedHeaders).get("x-forwarded-for");
+  const realIp = (headers() as unknown as UnsafeUnwrappedHeaders).get("x-real-ip");
 
   if (forwardedFor) {
     return forwardedFor.split(",")[0].trim();
